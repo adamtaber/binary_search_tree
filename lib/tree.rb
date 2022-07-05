@@ -2,7 +2,7 @@ require_relative './node'
 require_relative './merge_sort'
 
 class Tree
-  attr_accessor :array
+  attr_accessor :array, :level_order_array, :temp_arr
   attr_reader :root
 
   def initialize(arry)
@@ -78,9 +78,21 @@ class Tree
       find(value, root.left_child)
     end
   end
+
+  def level_order(arr1=[self.root], arr2=[])
+    if arr1.length == 0
+      return
+    else
+    arr1.each do |x|
+      p x.data 
+      arr2.push(x.left_child) if x.left_child != nil
+      arr2.push(x.right_child) if x.right_child != nil
+    end
+    level_order(arr2)
+    end
+  end
 end
 
 test = Tree.new([1, 1, 65, 2, 6, 3, 3, 3, 4])
-test.find(4)
 
-
+test.level_order
