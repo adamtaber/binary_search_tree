@@ -189,6 +189,12 @@ class Tree
     sort_array(@array)
     @root = build_tree(@array)
   end
+
+  def pretty_print(node=@root, prefix='', is_left=true)
+    pretty_print(node.right_child, "#{prefix}#{is_left ? '|   ' : '    '}", false) if node.right_child
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+  end
 end
 
 test = Tree.new([1, 5, 8, 12, 18, 37, 50, 61, 71, 76, 77, 86, 93])
@@ -203,3 +209,4 @@ p test.level_order
 p test.inorder
 p test.preorder
 p test.postorder
+test.pretty_print
